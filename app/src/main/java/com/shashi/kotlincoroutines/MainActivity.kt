@@ -50,6 +50,25 @@ class MainActivity : AppCompatActivity() {
             //This blocks the Main thread
             delay(1000L)
         }
+
+        val job = GlobalScope.launch(Dispatchers.Default) {
+
+            //Automatically cancels coroutine if it takes more than 3ms
+            withTimeout(3000L) {
+                //task
+                if (isActive) {
+                    //Executes only if the coroutine is not cancelled
+                    //job.cancel()
+                }
+            }
+
+        }
+
+        runBlocking {
+            job.join()      //Joins the coroutine, Main activity will wait for the coroutine
+            job.cancel()    //Cancel the coroutine
+        }
+
     }
 
     private suspend fun doNetworkCall(): String {
