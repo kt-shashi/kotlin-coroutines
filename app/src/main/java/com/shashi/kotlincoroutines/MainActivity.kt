@@ -3,6 +3,7 @@ package com.shashi.kotlincoroutines
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         jobCancel()
 
         asyncAndAwait()
+
+        coroutineScope()
     }
 
     private fun coroutineContext() {
@@ -113,6 +116,13 @@ class MainActivity : AppCompatActivity() {
 
             Log.d(TAG, "Time takes: $time ms")
         }
+    }
+
+    private fun coroutineScope() {
+        //The coroutine is cancelled when application is closed
+        GlobalScope.launch { }
+        //The coroutine is cancelled when activity is destroyed
+        lifecycleScope.launch {}
     }
 
     private suspend fun doNetworkCall(): String {
