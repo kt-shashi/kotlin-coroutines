@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity() {
                 textViewMain.text = answer
             }
         }
+
+        //If you want to call a suspend fun without coroutine behaviour, use runBlocking
+        runBlocking {
+            //This blocks the Main thread
+            delay(1000L)
+        }
     }
 
     private suspend fun doNetworkCall(): String {
